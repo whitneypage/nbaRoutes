@@ -3,15 +3,16 @@ var app = angular.module('nbaRoutes');
 app.controller('teamCtrl', function($scope, $routeParams, teamService, teamData){
 
 $scope.teamData = teamData;
+console.log(teamData);
 $scope.newGame  = {};
 $scope.showNewGameForm = false;
+
 $scope.toggleNewGameForm = function() {
-	if ($scope.showNewGameForm) {
-		$scope.showNewGameForm = false;
-	} else {
-		$scope.showNewGameForm = true;
-	}
-}
+   $scope.showNewGameForm = !$scope.showNewGameForm 
+};
+	
+		
+	
 
 
 if ($routeParams.team === 'utahjazz') {
@@ -35,16 +36,15 @@ $scope.submitGame = function() {
 	.then(function() {
 		teamService.getTeamData($scope.newGame.homeTeam)
 		.then(function(info) {
-			return info;
+			$scope.teamData = info;
+			$scope.newGame = [];
+			$scope.showNewGameForm = false;
 		})
 		
 	})
 
-$scope.newGame = {};
-$scope.showNewGameForm = false;
-}
-console.log($scope.newGame);
 
+}
 
 
 });
